@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,6 +61,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool _isFacingRight = true;
+
+    //public bool IsFacingRight { get { return _isFacingRight; } private set 
+    //    {
+    //        if (_isFacingRight) 
+    //        {
+    //            //flip the local scale to make the player face the opposite direction
+    //            transform.localScale *= new Vector2(-1, 1);
+    //        }
+    //        _isFacingRight = value;
+    //    } }
+
+    public bool IsFacingRight
+    {
+        get { return _isFacingRight; }
+        private set
+        {
+            if (_isFacingRight != value)
+            {
+                // Flip the local scale to flip sprite direction
+                Vector3 scale = transform.localScale;
+                scale.x *= -1;
+                transform.localScale = scale;
+            }
+            _isFacingRight = value;
+        }
+    }
+
+
     Rigidbody2D rb;
     Animator animator;
 
@@ -91,6 +121,22 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
 
         IsMoving = moveInput != Vector2.zero;
+
+        setFacingDirection(moveInput);
+    }
+
+    private void setFacingDirection(Vector2 moveInput)
+    {
+        if(moveInput.x > 0 && !IsFacingRight)
+        {
+            //right
+            IsFacingRight = true;
+        }
+        else if(moveInput.x < 0 && IsFacingRight)
+        {
+            //left
+            IsFacingRight= false;
+        }
     }
 
     public void OnRun(InputAction.CallbackContext context)
