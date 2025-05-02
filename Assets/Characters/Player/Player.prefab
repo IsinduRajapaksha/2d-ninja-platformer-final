@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8826104333160763135}
   - component: {fileID: 1833810765118200710}
   - component: {fileID: 4244881481706259667}
-  - component: {fileID: 94141759789491421}
+  - component: {fileID: 2203685776808572322}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   runSpeed: 8
+  jumpImpulse: 10
   _isMoving: 0
   _isRunning: 0
   _isFacingRight: 1
@@ -168,18 +169,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -251,6 +240,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: aceab3e6-23c8-4764-a50f-ade14a0c167a
     m_ActionName: Player/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1728097617369752187}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 61d88c74-3c13-41d8-accc-a26454e488b8
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -309,10 +314,10 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0309785, y: -0.27880657}
-  m_Size: {x: 0.6201652, y: 1.6114781}
+  m_Offset: {x: -0.0309785, y: -0.2850424}
+  m_Size: {x: 0.6201652, y: 1.6239498}
   m_Direction: 0
---- !u!114 &94141759789491421
+--- !u!114 &2203685776808572322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -321,6 +326,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2495693354144751271}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d28692555af854346a66e9a3798f5db6, type: 3}
+  m_Script: {fileID: 11500000, guid: da3784f2d71d85b4a888d00d85bfb4fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  groundDistance: 0.05
+  _isGrounded: 0

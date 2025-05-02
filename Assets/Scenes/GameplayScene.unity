@@ -27411,6 +27411,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1728097617369752187, guid: fe315ed66cb126740808c2250fe389af, type: 3}
+      propertyPath: airWalkSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2495693354144751271, guid: fe315ed66cb126740808c2250fe389af, type: 3}
       propertyPath: m_Name
       value: Player
