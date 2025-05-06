@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 
 public class Knight : MonoBehaviour
 {
@@ -16,32 +16,59 @@ public class Knight : MonoBehaviour
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
     Animator animator;
+    Damageable damageable;
 
     public enum WalkableDirection { Left, Right }
 
     private WalkableDirection _walkDirection;
     private Vector2 walkDirectionVector = Vector2.right;
 
+    //public WalkableDirection WalkDirection
+    //{
+    //    get { return _walkDirection; }
+    //    set {
+    //        if (_walkDirection != value) 
+    //        {
+    //            //flipping direction
+    //            gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y);
+
+    //            if (value == WalkableDirection.Right)
+    //            {
+    //                walkDirectionVector = Vector2.right;
+    //            } else
+    //            {
+    //                walkDirectionVector = Vector2.left;
+    //            }
+    //        }
+
+    //        _walkDirection = value; }
+    //}
+
     public WalkableDirection WalkDirection
     {
         get { return _walkDirection; }
-        set {
-            if (_walkDirection != value) 
+        set
+        {
+            if (_walkDirection != value)
             {
-                //flipping direction
-                gameObject.transform.localScale = new Vector2(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y);
+                _walkDirection = value;
 
                 if (value == WalkableDirection.Right)
                 {
                     walkDirectionVector = Vector2.right;
-                } else
+                    // Set scale explicitly to face right
+                    transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+                }
+                else // Left
                 {
                     walkDirectionVector = Vector2.left;
+                    // Set scale explicitly to face left
+                    transform.localScale = new Vector2(-Mathf.Abs(transform.localScale.x), transform.localScale.y);
                 }
             }
-            
-            _walkDirection = value; }
+        }
     }
+
 
     public bool _hasTarget = false;
 
@@ -67,6 +94,7 @@ public class Knight : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
+        damageable = GetComponent<Damageable>();
     }
 
     void Update()
@@ -80,13 +108,18 @@ public class Knight : MonoBehaviour
         {
             FlipDirection();
         }
-        if(CanMove)
+        if(!damageable.LockVelocity)
         {
-            rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
-        } else
-        {
-            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y);
+            if (CanMove)
+            {
+                rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y);
+            }
         }
+        
         
     }
 
@@ -103,6 +136,11 @@ public class Knight : MonoBehaviour
         {
             Debug.LogError("Current walkable direction is not set to legal values of right or left");
         }
+    }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 
 }
