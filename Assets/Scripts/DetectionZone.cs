@@ -25,7 +25,7 @@ public class DetectionZone : MonoBehaviour
     {
         detectedColliders.Remove(collision);
 
-        if(detectedColliders.Count > 0 )
+        if(detectedColliders.Count <= 0 )
         {
             noCollidersRemain.Invoke();
         }
