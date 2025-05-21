@@ -143,8 +143,6 @@ public class Knight : MonoBehaviour
                 rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y);
             }
         }
-
-
     }
 
     private void FlipDirection()
