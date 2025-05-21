@@ -28,10 +28,17 @@ public class HealthPickup : MonoBehaviour
         {
             bool wasHealed = damageable.Heal(healthRestore);
 
-            if(wasHealed)
+            //if(wasHealed)
+            //    if (pickupSource)
+            //        AudioSource.PlayClipAtPoint(pickupSource.clip, gameObject.transform.position, pickupSource.volume);
+            //    Destroy(gameObject);
+            if (wasHealed)
+            {
                 if (pickupSource)
                     AudioSource.PlayClipAtPoint(pickupSource.clip, gameObject.transform.position, pickupSource.volume);
                 Destroy(gameObject);
+            }
+
         }
     }
 
